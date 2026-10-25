@@ -1,0 +1,1078 @@
+/* ==========================================================================
+   SubtitleCat Extension — 教學與說明頁面樣式
+   純 CSS 實作，無外部字型或遠端依賴，完全相容 MV3 CSP 與離線使用。
+   ========================================================================== */
+
+/* 核心變數 */
+:root {
+  --bg-main: #0b0f19;
+  --bg-surface: #111827;
+  --bg-card: rgba(17, 24, 39, 0.78);
+  --bg-card-hover: rgba(30, 41, 59, 0.85);
+  --bg-inset: #070a12;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #38bdf8;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-accent: #38bdf8;
+
+  --brand-cyan: #38bdf8;
+  --brand-indigo: #818cf8;
+  --brand-emerald: #34d399;
+  --brand-amber: #fbbf24;
+  --brand-rose: #f87171;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+  --max-width: 1040px;
+}
+
+/* 全域重設 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0b0f19 50%, #070a12 100%);
+  background-attachment: fixed;
+  color: var(--text-secondary);
+  overflow-x: hidden;
+  padding-bottom: 60px;
+}
+
+/* 減少動態效果設定 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 容器 */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* 頁首 / Hero */
+.hero {
+  padding-top: 48px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+
+.brand-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  margin-bottom: 20px;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #0284c7, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.brand-icon img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  z-index: 2;
+}
+
+/* 當圖片尚不存在時的優雅 SVG 備用層 */
+.brand-icon-fallback {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+  z-index: 1;
+}
+
+.brand-pill-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-cyan);
+  letter-spacing: 0.5px;
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto 24px auto;
+  line-height: 1.6;
+}
+
+/* 核心特性標籤 */
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-cyan);
+}
+.tag-dot.emerald { background: var(--brand-emerald); }
+.tag-dot.indigo { background: var(--brand-indigo); }
+.tag-dot.amber { background: var(--brand-amber); }
+
+/* 步驟快速跳轉列 */
+.quick-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 780px;
+  margin: 0 auto 40px auto;
+}
+
+.nav-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--border-subtle);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.nav-pill:hover, .nav-pill:focus-visible {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.nav-pill-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--brand-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.nav-pill-label {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 步驟卡片基礎 */
+.steps-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.step-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.6), transparent);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--brand-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.step-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+/* 雙欄佈局 (文字說明 + 右側視覺 Mock) */
+.step-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step-text {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* 支援網站狀態清單 */
+.site-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.site-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.site-status-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.site-status-icon.verified { fill: var(--brand-emerald); }
+.site-status-icon.untested { fill: var(--brand-amber); }
+
+.site-info {
+  flex: 1;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.site-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.site-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.site-badge.verified {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--brand-emerald);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.site-badge.untested {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--brand-amber);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.site-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 提示與警語區塊 */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--brand-cyan);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.callout.info {
+  border-left-color: var(--brand-cyan);
+  background: rgba(56, 189, 248, 0.05);
+}
+
+.callout.warning {
+  border-left-color: var(--brand-amber);
+  background: rgba(251, 191, 36, 0.05);
+}
+
+.callout.success {
+  border-left-color: var(--brand-emerald);
+  background: rgba(52, 211, 153, 0.05);
+}
+
+.callout-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.callout.info .callout-icon { fill: var(--brand-cyan); }
+.callout.warning .callout-icon { fill: var(--brand-amber); }
+.callout.success .callout-icon { fill: var(--brand-emerald); }
+
+/* 步驟數字列表 */
+.step-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.step-num-bubble {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--brand-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* 鍵盤按鍵與代碼標籤 */
+kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  line-height: 1.3;
+  color: #fff;
+  background-color: #1e293b;
+  border: 1px solid #475569;
+  border-bottom: 2px solid #334155;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   CSS 視覺示意組件 (Mocks) — 抽象示意，零真實網頁圖像
+   ========================================================================== */
+
+/* 視窗容器框架 */
+.mock-window {
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-titlebar {
+  background: #131b2e;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.mock-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #334155;
+}
+.mock-dot:nth-child(1) { background: #ef4444; }
+.mock-dot:nth-child(2) { background: #f59e0b; }
+.mock-dot:nth-child(3) { background: #10b981; }
+
+.mock-url-pill {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* Mock 1: 影片播放器模擬 */
+.mock-player-body {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0a0f1d 85%);
+  aspect-ratio: 16 / 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  overflow: hidden;
+}
+
+/* 播放器中央抽象光暈與播放圖示 */
+.mock-player-center {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.mock-play-triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.85);
+  margin-left: 3px;
+}
+
+/* 字幕層模擬 (與 content.js 完全一致的樣式表現) */
+.mock-subtitle-layer {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 56px;
+  text-align: center;
+  pointer-events: none;
+  font: 600 15px/1.4 var(--font-sans);
+  color: #fff;
+  text-shadow: 0 0 4px #000, 0 0 4px #000, 0 0 4px #000;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 2;
+}
+
+.mock-sub-line-zh {
+  color: #ffffff;
+}
+
+.mock-sub-line-en {
+  font-size: 12.5px;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+/* 左下角真實徽章模擬 (與 content.js 完全相同樣式) */
+.mock-actual-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  font: 12px/1.4 sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  align-self: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+}
+
+.mock-badge-code {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.mock-badge-detail {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* 播放器底端進度控制列 */
+.mock-controls-bar {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 10px;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+}
+
+.mock-progress-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mock-progress-filled {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  background: var(--brand-cyan);
+}
+
+/* Mock 2: Chrome 擴充管理頁面示意 */
+.mock-extensions-page {
+  background: #111827;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mock-ext-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-ext-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.mock-dev-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.mock-toggle-switch {
+  width: 28px;
+  height: 16px;
+  background: #0284c7;
+  border-radius: 8px;
+  position: relative;
+}
+
+.mock-toggle-knob {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.mock-ext-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mock-action-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+}
+
+.mock-action-btn.primary {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.mock-extension-card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mock-card-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.mock-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #0284c7, #4f46e5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.mock-card-icon img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.mock-card-fallback-text {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  z-index: 1;
+}
+
+.mock-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.mock-card-ver {
+  font-size: 10px;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+}
+
+.mock-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 8px;
+}
+
+.mock-reload-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Mock 3: 狀態徽章展示盒與切換流程 */
+.state-badges-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #090d16;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.state-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.state-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.state-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.state-tag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.state-badge-preview {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font: 12.5px/1.4 sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  word-break: break-all;
+}
+
+.state-badge-preview.active-state {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+}
+
+/* 循環流程卡 */
+.cycle-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-top: 8px;
+}
+
+.cycle-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cycle-pill {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+.cycle-pill.tw { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+.cycle-pill.cn { color: #818cf8; border-color: rgba(129, 140, 248, 0.4); }
+.cycle-pill.off { color: #94a3b8; }
+
+.cycle-arrow {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Mock 4: DevTools Console 模擬 */
+.mock-console {
+  background: #0f141f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.mock-console-header {
+  background: #192233;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-console-filter {
+  background: #0f141f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  padding: 2px 8px;
+  color: #38bdf8;
+  font-size: 11px;
+}
+
+.mock-console-logs {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-x: auto;
+}
+
+.mock-log-row {
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.mock-log-tag {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.mock-log-text {
+  color: #cbd5e1;
+}
+
+.mock-log-meta {
+  color: #64748b;
+}
+
+/* 注意事項要點卡片 */
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.note-card {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.note-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.note-card-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* 頁尾 */
+.footer {
+  margin-top: 50px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.footer-link {
+  color: var(--brand-cyan);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   響應式設計 (RWD) — 支援 390px 手機寬度至 1280px+ 桌面寬度
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .step-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-nav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-title {
+    font-size: 24px;
+  }
+
+  .step-card {
+    padding: 20px 16px;
+  }
+
+  .step-title {
+    font-size: 17px;
+  }
+
+  .quick-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .nav-pill {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .mock-player-body {
+    min-height: 250px;
+    padding: 12px;
+  }
+
+  .mock-subtitle-layer {
+    font-size: 13px;
+    bottom: 72px;
+  }
+
+  .mock-actual-badge {
+    font-size: 11px;
+    padding: 4px 7px;
+    margin-bottom: 4px;
+  }
+}

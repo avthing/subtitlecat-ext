@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubtitleCat 中文字幕自動掛載 — 使用教學</title>
+  <meta name="description" content="在 Jable / MissAV 影片頁，自動依網址番號抓取 subtitlecat.com 中文字幕並掛載到播放器。">
+  <link rel="icon" type="image/png" href="../icons/icon-48.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ================= 頁首 Hero 區域 ================= -->
+  <header class="hero">
+    <div class="container">
+      <div class="brand-badge-wrap">
+        <div class="brand-icon" aria-hidden="true">
+          <!-- 圖示若暫無檔案則優雅降級顯示背景與備用幾何 -->
+          <img src="../icons/icon-48.png" alt="SubtitleCat 圖示" width="32" height="32">
+          <svg class="brand-icon-fallback" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/>
+          </svg>
+        </div>
+        <span class="brand-pill-text">Chrome 擴充功能 · Manifest V3</span>
+      </div>
+
+      <h1 class="hero-title">SubtitleCat 中文字幕自動掛載</h1>
+      <p class="hero-desc">
+        在 Jable 或 MissAV 的影片播放頁，自動根據網址解析番號，向 subtitlecat.com 檢索中文字幕並即時渲染於播放器上。
+      </p>
+
+      <!-- 特性標籤 -->
+      <div class="feature-tags" aria-label="核心特色">
+        <span class="tag"><span class="tag-dot emerald"></span>免登入無帳號</span>
+        <span class="tag"><span class="tag-dot cyan"></span>本機端快速快取</span>
+        <span class="tag"><span class="tag-dot indigo"></span>按 C 鍵無縫切換</span>
+        <span class="tag"><span class="tag-dot amber"></span>零外部資料傳輸</span>
+      </div>
+
+      <!-- 快速跳轉索引 -->
+      <nav class="quick-nav" aria-label="快速導覽目錄">
+        <a class="nav-pill" href="#step-1">
+          <span class="nav-pill-num">Step 01</span>
+          <span class="nav-pill-label">這是什麼</span>
+        </a>
+        <a class="nav-pill" href="#step-2">
+          <span class="nav-pill-num">Step 02</span>
+          <span class="nav-pill-label">安裝與更新</span>
+        </a>
+        <a class="nav-pill" href="#step-3">
+          <span class="nav-pill-num">Step 03</span>
+          <span class="nav-pill-label">使用方式</span>
+        </a>
+        <a class="nav-pill" href="#step-4">
+          <span class="nav-pill-num">Step 04</span>
+          <span class="nav-pill-label">疑難排解</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= 主內容區域：四步驟教學 ================= -->
+  <main class="container">
+    <div class="steps-wrapper">
+
+      <!-- 步驟 1：這是什麼 -->
+      <article class="step-card" id="step-1" aria-labelledby="t-step-1">
+        <header class="step-header">
+          <span class="step-badge">步驟 01</span>
+          <h2 class="step-title" id="t-step-1">這是什麼與支援網站</h2>
+        </header>
+
+        <div class="step-grid">
+          <div class="step-content">
+            <p class="step-text">
+              本工具是一套輕量的 Chrome 擴充功能（Manifest V3）。當您瀏覽支援網站的影片頁面時，程式會自動從網址擷取番號（例如 <code>/videos/mikr-112/</code> → <code>MIKR-112</code>），前往 <code>subtitlecat.com</code> 檢索繁體或簡體中文字幕，並直接繪製在播放畫面下方。
+            </p>
+
+            <div class="site-list" aria-label="支援網站清單">
+              <!-- Jable -->
+              <div class="site-item">
+                <svg class="site-status-icon verified" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div class="site-info">
+                  <div class="site-header">
+                    <span class="site-name">jable.tv (含 *.jable.tv)</span>
+                    <span class="site-badge verified">已實測支援</span>
+                  </div>
+                  <p class="site-desc">
+                    已完整實測。程式適配 Jable 所採用的 Plyr 播放器，可自動精準鎖定主影片時長，並智慧排除預覽縮圖影片與插播廣告。
+                  </p>
+                </div>
+              </div>
+
+              <!-- MissAV -->
+              <div class="site-item">
+                <svg class="site-status-icon verified" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div class="site-info">
+                  <div class="site-header">
+                    <span class="site-name">missav.ws / missav.ai</span>
+                    <span class="site-badge verified">作者實測可用</span>
+                  </div>
+                  <p class="site-desc">
+                    作者在 MissAV 上實測字幕可正常顯示。若在某部影片上字幕未正常疊加，歡迎依文末指示提供日誌回報。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout info">
+              <svg class="callout-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              </svg>
+              <div>
+                <strong>免去手動搜尋與外掛檔案：</strong>不用再另開分頁尋找字幕檔案，擴充功能會在背景完成檢索、下載與格式轉換，直接在網頁畫面呈現。
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 CSS 視覺模擬：播放器示意 -->
+          <div class="mock-window" aria-label="播放器畫面抽象示意圖">
+            <div class="mock-titlebar">
+              <div class="mock-dots" aria-hidden="true">
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+              </div>
+              <div class="mock-url-pill">https://jable.tv/videos/mikr-112/</div>
+            </div>
+            <div class="mock-player-body">
+              <div class="mock-player-center" aria-hidden="true">
+                <div class="mock-play-triangle"></div>
+              </div>
+
+              <!-- 字幕渲染層示意 -->
+              <div class="mock-subtitle-layer">
+                <div class="mock-sub-line-zh">你好，很高興遇見你。</div>
+                <div class="mock-sub-line-en">Hello, nice to meet you.</div>
+              </div>
+
+              <!-- 左下角真實徽章示意 -->
+              <div class="mock-actual-badge">
+                <span class="mock-badge-code">[MIKR-112]</span> 繁中 顯示中（點此或按 C 切換）<span class="mock-badge-detail"> · 影片 930×523 時長144分</span>
+              </div>
+
+              <!-- 播放進度列 -->
+              <div class="mock-controls-bar" aria-hidden="true">
+                <span>01:24:18</span>
+                <div class="mock-progress-track">
+                  <div class="mock-progress-filled"></div>
+                </div>
+                <span>02:24:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 步驟 2：安裝與更新 -->
+      <article class="step-card" id="step-2" aria-labelledby="t-step-2">
+        <header class="step-header">
+          <span class="step-badge">步驟 02</span>
+          <h2 class="step-title" id="t-step-2">安裝與更新擴充功能</h2>
+        </header>
+
+        <div class="step-grid">
+          <div class="step-content">
+            <p class="step-text">
+              本工具目前以開發原始碼形式發布，未上架至 Chrome 線上應用程式商店。請使用 Chrome 內建的「載入未封裝項目」功能進行安裝。
+            </p>
+
+            <ol class="step-checklist">
+              <li>
+                <span class="step-num-bubble">1</span>
+                <div>
+                  在 Chrome 網址列輸入 <code>chrome://extensions</code> 並按下 Enter，開啟擴充功能管理中心。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">2</span>
+                <div>
+                  在頁面右上角，將<strong>「開發人員模式」</strong>（Developer mode）開關切換為開啟。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">3</span>
+                <div>
+                  點擊左上角出現的<strong>「載入未封裝項目」</strong>（Load unpacked）按鈕。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">4</span>
+                <div>
+                  在檔案瀏覽視窗中，選取本專案的根目錄 <code>subtitlecat-ext</code> 資料夾即完成安裝。
+                </div>
+              </li>
+            </ol>
+
+            <div class="callout warning">
+              <svg class="callout-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+              </svg>
+              <div>
+                <strong>更新程式時的步驟：</strong><br>
+                當擴充功能代碼有變更時，請至 <code>chrome://extensions</code> 找到本擴充功能，點擊卡片上的<strong>「重新載入」</strong>（旋轉箭頭圖示），並在影片分頁按 <kbd>F5</kbd> 重新整理頁面。
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 CSS 視覺模擬：Chrome 擴充管理頁面示意 -->
+          <div class="mock-window" aria-label="Chrome 擴充功能管理介面抽象示意圖">
+            <div class="mock-titlebar">
+              <div class="mock-dots" aria-hidden="true">
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+              </div>
+              <div class="mock-url-pill">chrome://extensions</div>
+            </div>
+            <div class="mock-extensions-page">
+              <div class="mock-ext-topbar">
+                <span class="mock-ext-heading">擴充功能管理</span>
+                <div class="mock-dev-toggle">
+                  <span>開發人員模式</span>
+                  <div class="mock-toggle-switch">
+                    <div class="mock-toggle-knob"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mock-ext-actions">
+                <div class="mock-action-btn primary">載入未封裝項目</div>
+                <div class="mock-action-btn">封裝擴充功能</div>
+              </div>
+
+              <div class="mock-extension-card">
+                <div class="mock-card-header">
+                  <div class="mock-card-icon">
+                    <img src="../icons/icon-128.png" alt="SubtitleCat 128px 圖示" width="32" height="32">
+                    <span class="mock-card-fallback-text">SC</span>
+                  </div>
+                  <div>
+                    <div class="mock-card-title">SubtitleCat 中文字幕自動掛載 (MVP)</div>
+                    <div class="mock-card-ver">版本 0.1.0 · ID: 未封裝擴充功能</div>
+                  </div>
+                </div>
+                <div class="mock-card-footer">
+                  <div class="mock-reload-btn">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    <span>重新載入</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 步驟 3：使用方式 -->
+      <article class="step-card" id="step-3" aria-labelledby="t-step-3">
+        <header class="step-header">
+          <span class="step-badge">步驟 03</span>
+          <h2 class="step-title" id="t-step-3">使用方式與快捷鍵操作</h2>
+        </header>
+
+        <div class="step-grid">
+          <div class="step-content">
+            <p class="step-text">
+              開啟符合番號規則的影片網址（如 <code>https://jable.tv/videos/mikr-112/</code>）後，畫面左下角將常駐黑色狀態小徽章，格式為 <code>[番號] 狀態</code>。
+            </p>
+
+            <ul class="step-checklist">
+              <li>
+                <span class="step-num-bubble">A</span>
+                <div>
+                  <strong>切換字幕語系：</strong><br>
+                  直接<strong>點擊左下角徽章</strong>或按下鍵盤鍵 <kbd>C</kbd>，即可快速循環切換語系。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">B</span>
+                <div>
+                  <strong>輸入文字時防誤觸：</strong><br>
+                  當游標正在文字輸入框（<code>&lt;input&gt;</code> 或 <code>&lt;textarea&gt;</code>）內鍵入內容時，按 <kbd>C</kbd> 鍵不會觸發字幕切換，絕不干擾打字。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">C</span>
+                <div>
+                  <strong>全螢幕觀看支援：</strong><br>
+                  當播放器切換至全螢幕時，徽章會自動同步移入全螢幕容器中。全螢幕下建議優先使用 <kbd>C</kbd> 鍵切換。
+                </div>
+              </li>
+              <li>
+                <span class="step-num-bubble">D</span>
+                <div>
+                  <strong>調整字幕樣式：</strong><br>
+                  點瀏覽器工具列上的<strong>擴充功能圖示</strong>（若沒看到，先從拼圖圖示釘選），可調整字體顏色與透明度、大小、字形、邊緣、背景，以及字幕離畫面底部的距離，上方有預覽。開著影片頁調整時，影片上的字幕會同步變化，設定會自動儲存；按「重設」可回到預設值。
+                </div>
+              </li>
+            </ul>
+
+            <div class="callout success">
+              <svg class="callout-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+              </svg>
+              <div>
+                <strong>主影片掛載提示：</strong><br>
+                當字幕成功掛載至主要影片時，徽章文字後方會自動追加解析度與時長資訊（例如 <code> · 影片 930×523 時長144分</code>），代表已鎖定正確的主片。
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 CSS 視覺模擬：徽章狀態清單與循環流程 -->
+          <div class="state-badges-box" aria-label="徽章狀態一覽與切換循環">
+            <div class="state-row">
+              <div class="state-meta">
+                <span class="state-title">檢索中</span>
+                <span class="state-tag">初始化</span>
+              </div>
+              <div class="state-badge-preview">
+                <span class="mock-badge-code">[MIKR-112]</span> 搜尋字幕中…
+              </div>
+            </div>
+
+            <div class="state-row">
+              <div class="state-meta">
+                <span class="state-title">繁體中文顯示</span>
+                <span class="state-tag">預設啟用</span>
+              </div>
+              <div class="state-badge-preview active-state">
+                <span class="mock-badge-code">[MIKR-112]</span> 繁中 顯示中（點此或按 C 切換）<span class="mock-badge-detail"> · 影片 930×523 時長144分</span>
+              </div>
+            </div>
+
+            <div class="state-row">
+              <div class="state-meta">
+                <span class="state-title">簡體中文顯示</span>
+                <span class="state-tag">可選語系</span>
+              </div>
+              <div class="state-badge-preview">
+                <span class="mock-badge-code">[MIKR-112]</span> 简中 顯示中（點此或按 C 切換）<span class="mock-badge-detail"> · 影片 930×523 時長144分</span>
+              </div>
+            </div>
+
+            <div class="state-row">
+              <div class="state-meta">
+                <span class="state-title">隱藏字幕</span>
+                <span class="state-tag">關閉狀態</span>
+              </div>
+              <div class="state-badge-preview">
+                <span class="mock-badge-code">[MIKR-112]</span> 字幕關閉（點此或按 C 切換）<span class="mock-badge-detail"> · 影片 930×523 時長144分</span>
+              </div>
+            </div>
+
+            <div class="state-row">
+              <div class="state-meta">
+                <span class="state-title">查無字幕或失敗</span>
+                <span class="state-tag">無結果</span>
+              </div>
+              <div class="state-badge-preview">
+                <span class="mock-badge-code">[MIKR-112]</span> subtitlecat 沒有中文字幕
+              </div>
+            </div>
+
+            <!-- 切換循環流程 -->
+            <div class="cycle-flow">
+              <div class="cycle-step">
+                <span class="cycle-pill tw">繁中</span>
+              </div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">
+                <span class="cycle-pill cn">简中</span>
+              </div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">
+                <span class="cycle-pill off">關閉</span>
+              </div>
+              <span class="cycle-arrow">↺</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 步驟 4：注意事項與疑難排解 -->
+      <article class="step-card" id="step-4" aria-labelledby="t-step-4">
+        <header class="step-header">
+          <span class="step-badge">步驟 04</span>
+          <h2 class="step-title" id="t-step-4">注意事項與疑難排解</h2>
+        </header>
+
+        <div class="step-grid">
+          <div class="step-content">
+            <p class="step-text">
+              擴充功能設計強調輕量、安全與對來源站點友善，以下為字幕來源特性與快取機制說明：
+            </p>
+
+            <div class="notes-grid">
+              <div class="note-card">
+                <div class="note-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  <span>字幕來源與格式</span>
+                </div>
+                <p class="note-card-text">
+                  字幕源自 subtitlecat.com 的機器翻譯，品質因片而異。每則字幕通常包含兩行（中文譯文與原文英文），此為來源 SRT 檔案本身的原始格式。
+                </p>
+              </div>
+
+              <div class="note-card">
+                <div class="note-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>請求節流與本機快取</span>
+                </div>
+                <p class="note-card-text">
+                  對 subtitlecat.com 請求至少間隔 1 秒。查獲的字幕會儲存於瀏覽器本機（chrome.storage.local）；若查無字幕亦會快取 1 小時，避免頻繁重複請求。
+                </p>
+              </div>
+
+              <div class="note-card">
+                <div class="note-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  <span>個人隱私承諾</span>
+                </div>
+                <p class="note-card-text">
+                  完全不會將任何觀看紀錄、番號或個人資訊傳送至 subtitlecat.com 以外之第三方伺服器，無需註冊帳號、無任何分析追蹤代碼。
+                </p>
+              </div>
+
+              <div class="note-card">
+                <div class="note-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                  </svg>
+                  <span>資料庫收錄限制</span>
+                </div>
+                <p class="note-card-text">
+                  僅當 subtitlecat 資料庫有收錄該番號時才會有字幕；若來源庫未收錄，徽章將明確提示「subtitlecat 沒有中文字幕」。
+                </p>
+              </div>
+            </div>
+
+            <!-- 排錯指引 -->
+            <div class="callout warning">
+              <svg class="callout-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <div>
+                <strong>看不到字幕時的排查步驟：</strong><br>
+                1. 按 <kbd>F12</kbd> 開啟瀏覽器開發者工具（DevTools），切換至 <strong>Console</strong>（主控台）分頁。<br>
+                2. 在上方篩選欄位（Filter）輸入 <code>[subtitlecat-ext]</code>。<br>
+                3. 將篩選出的除錯日誌，連同左下角徽章上的狀態文字一併提供給開發者。
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 CSS 視覺模擬：Console 主控台模擬 -->
+          <div class="mock-console" aria-label="DevTools Console 除錯日誌模擬">
+            <div class="mock-console-header">
+              <div class="mock-dots" aria-hidden="true">
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+                <span class="mock-dot"></span>
+              </div>
+              <span class="mock-console-filter">Filter: [subtitlecat-ext]</span>
+            </div>
+            <div class="mock-console-logs">
+              <div class="mock-log-row">
+                <span class="mock-log-tag">[subtitlecat-ext]</span>
+                <span class="mock-log-text">掛到影片</span>
+                <span class="mock-log-meta">{via: "duration", size: "930x523", minutes: 144}</span>
+              </div>
+              <div class="mock-log-row">
+                <span class="mock-log-tag">[subtitlecat-ext]</span>
+                <span class="mock-log-text">字幕已取得 繁中:1120則 简中:1120則</span>
+              </div>
+              <div class="mock-log-row">
+                <span class="mock-log-tag">[subtitlecat-ext]</span>
+                <span class="mock-log-text">字幕 84.2 你好，很高興遇見你。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ================= 頁尾 Footer 區域 ================= -->
+  <footer class="footer">
+    <div class="container">
+      <p>SubtitleCat 中文字幕自動掛載 · 僅供個人學習與輔助閱讀使用</p>
+      <div class="footer-links">
+        <a class="footer-link" href="#step-1">回到頂部</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
